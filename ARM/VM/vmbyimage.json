@@ -1,0 +1,108 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": 
+    {
+        "vmName": 
+        {
+            "type": "string",
+            "metadata": 
+            {
+                "description": "Nome da VM"
+            }
+        },
+        "location": 
+        {
+            "type": "string",
+            "metadata": 
+            {
+                "description": "Localização de deploy da VM"
+            }
+        },
+        "vmSize": 
+        {
+            "type": "string",
+            "metadata": 
+            {
+                "description": "Tamanho da instância (CPU, Memória)(F2s_vs, F4s_v2 ou D2as_v4)"
+            },
+            "allowedValues": 
+            [
+                "Standard_F2s_v2",
+                "Standard_F4s_v2",
+                "Standard_D2as_v4"
+            ]
+        },
+        "maxPriceP": 
+        {
+            "type": "string",
+            "metadata": 
+            {
+                "description": "Preço máximo da instância Spot"
+            }
+        },
+        "nameNetworkProfile": 
+        {
+            "type": "string",
+            "metadata": 
+            {
+                "description": "Nome do perfil de rede"
+            }
+        }
+    },
+    "functions": [],
+    "variables": {},
+    "resources": 
+    [
+    {
+    "type": "Microsoft.Compute/virtualMachines",
+    "apiVersion": "2021-07-01",
+    "name": "[parameters('vmName')]",
+    "location": "[parameters('location')]",
+    "properties": 
+    {
+      "securityProfile": 
+      {
+        "securityType": "TrustedLaunch"
+      },
+      "osProfile": 
+      {
+        "computerName": "[parameters('vmName')]",
+        "adminUsername": "Flavio",
+        "adminPassword": "66964774Aa@GrandForce"
+      },
+      "networkProfile": 
+      {
+        "networkInterfaces":
+        [
+          {
+            "id": "[resourceId('Microsoft.Network/networkInterfaces', parameters('nameNetworkProfile'))]"
+          }
+        ]
+      },
+      "hardwareProfile": 
+      {
+        "vmSize": "[parameters('vmSize')]"
+      },
+      "storageProfile": 
+      {
+        "imageReference": 
+        {
+          "id": "/subscriptions/31fad7a5-8666-4bfd-8b77-efae9758905b/resourceGroups/dev-geral/providers/Microsoft.Compute/galleries/geral/images/vscode/versions/0.0.1"
+        },
+        "osDisk": 
+        {
+          "createOption": "FromImage"
+        }
+      },
+      "priority": "Spot",
+      "evictionPolicy": "Deallocate",
+      "billingProfile": 
+      {
+      "maxPrice": "[parameters('maxPriceP')]"
+      }
+    }
+  }
+],
+    "outputs": {}
+}

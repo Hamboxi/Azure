@@ -1,0 +1,10 @@
+#Para selecionar a assinatura de deploy:
+
+Get-AzSubscription #Copie o ID da sua assinatura
+
+$context = Get-AzSubscription -SubscriptionId <ID da assinatura>
+Set-AzContext $context #Usado para definir a assinatura de deploy
+
+Get-AzResourceGroup #Copie o ID do grupo de recursos
+
+Set-AzDefault -ResourceGroupName <ID do resourcegroup>
