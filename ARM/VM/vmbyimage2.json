@@ -84,12 +84,6 @@
       {
         "securityType": "TrustedLaunch"
       },
-      "osProfile": 
-      {
-        "computerName": "[parameters('vmName')]",
-        "adminUsername": "Flavio",
-        "adminPassword": "66964774Aa@GrandForce"
-      },
       "networkProfile": 
       {
         "networkInterfaces":

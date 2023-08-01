@@ -4,10 +4,25 @@ $deploymentName = "vscodedeploy"
 $templateFilePath = "vmbyimage.json"
 $nameNetwork = "vscodenet"
 $parameters = @{
-    "vmName" = "vscode";
-    "location" = "Canada Central";
-    "vmSize" = "Standard_F2s_v2"; #(Standard_F2s_v2, Standard_F4s_v2 ou Standard_D2as_v4)
-    "maxPriceP" = "0.03"
+    vmName = "vscode";
+    location = "Canada Central";
+    vmSize = "Standard_F2s_v2";
+    maxPriceP = "0.03";
+    <# dataDisks = @(
+        @{
+            lun = 0;
+            createOption = "Attach";
+            caching = "Read";
+            diskSizeGB = 4;
+            managedDisk = 
+            @{
+                id = "/subscriptions/31fad7a5-8666-4bfd-8b77-efae9758905b/resourceGroups/dev-geral/providers/Microsoft.Compute/disks/vscode_data01";
+                storageAccountType = "Standard_LRS"
+            };
+            deleteOption = "Delete";
+            writeAcceleratorEnabled = $false
+        } #>
+    #)
 }
 
 # Verifica se já está conectado a uma conta do Azure

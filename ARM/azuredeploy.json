@@ -1,19 +1,24 @@
 {
     "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
-    "parameters": {
-        "storageName": {
-        "type": "string",
-        "minLength": 3,
-        "maxLength": 24,
-        "metadata": {
-            "description": "Nome do recurso de armazenamento do Azure"
-        }
-    },
-        "storageSKU": {
+    "parameters": 
+    {
+        "storageName": 
+        {
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 24,
+            "metadata": 
+                {
+                    "description": "Nome do recurso de armazenamento do Azure"
+                }
+        },
+        "storageSKU": 
+        {
             "type": "string",
             "defaultValue": "Standard_LRS",
-            "allowedValues": [
+            "allowedValues": 
+            [
                 "Standard_LRS",
                 "Standard_GRS",
                 "Standard_RAGRS",
@@ -23,29 +28,42 @@
                 "Standard_GZRS",
                 "Standard_RAGZRS"
             ],
-            "metadata": {
+            "metadata": 
+            {
                 "description": "SKU do storage"
             }
-        }},
+        }
+    },
+
     "functions": [],
+
     "variables": {},
-    "resources": [{
+
+    "resources": 
+    [
+    {
         "name": "[parameters('storageName')]",
         "type": "Microsoft.Storage/storageAccounts",
         "apiVersion": "2021-04-01",
-        "tags": {
+        "tags": 
+        {
             "displayName": "[parameters('storageName')]"
         },
         "location": "[resourceGroup().location]",
         "kind": "StorageV2",
-        "sku": {
+        "sku": 
+        {
             "name": "[parameters('storageSKU')]",
             "tier": "Standard"
         }
-    }],
-    "outputs": {
-        "storageEndpoint": {
+    }
+    ],
+    "outputs": 
+    {
+        "storageEndpoint": 
+        {
         "type": "object",
         "value": "[reference(parameters('storageName')).primaryEndpoints]"
-    }}
+        }
+    }
 }

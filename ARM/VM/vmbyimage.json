@@ -49,12 +49,26 @@
                 "description": "Nome do perfil de rede"
             }
         }
+        /* "dataDisks": 
+        {
+          "type": "array",
+          "metadata": 
+          {
+            "description": "Dados do disco adicional"
+          }
+        } */
     },
+
+
     "functions": [],
+
+
     "variables": 
     {
       
     },
+
+
     "resources": 
     [
     {
@@ -84,9 +98,8 @@
       /* "osProfile": 
       {
          "computerName": "[parameters('vmName')]",
-        "adminUsername": "Flavio",
-        "adminPassword": "66964774Aa@GrandForce
-        Ass"
+        "adminUsername": "user",
+        "adminPassword": "pass"
       }, */
       "networkProfile": 
       {
@@ -103,6 +116,17 @@
       },
       "storageProfile": 
       {
+        "dataDisks": 
+        [
+        {
+            "createOption": "Attach",
+            "managedDisk": 
+            {
+                "id": "/subscriptions/31fad7a5-8666-4bfd-8b77-efae9758905b/resourceGroups/dev-geral/providers/Microsoft.Compute/disks/vscode_data01"
+            },
+            "lun": 1
+        }
+        ],
         "osDisk": 
         {
           "createOption": "fromImage",
@@ -125,5 +149,7 @@
     }
   }
 ],
+
+
     "outputs": {}
 }
