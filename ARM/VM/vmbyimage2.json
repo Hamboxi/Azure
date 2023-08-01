@@ -53,41 +53,43 @@
     "functions": [],
     "variables": 
     {
-      
+      "storageAccountName": "vscodeflavio01"
     },
     "resources": 
     [
+    {
+    "type": "Microsoft.Storage/storageAccounts",
+    "apiVersion": "2018-07-01",
+    "name": "[variables('storageAccountName')]",
+    "location": "[parameters('location')]",
+    "sku": 
+    {
+        "name": "Standard_LRS"
+    },
+    "kind": "Storage",
+    "properties": {}
+    },
     {
     "type": "Microsoft.Compute/virtualMachines",
     "apiVersion": "2021-07-01",
     "name": "[parameters('vmName')]",
     "location": "[parameters('location')]",
+    "dependsOn": 
+    [
+        "[resourceId('Microsoft.Storage/storageAccounts/', variables('storageAccountName'))]"
+    ],
     "properties": 
     {
       "securityProfile": 
       {
-        "securityType": "TrustedLaunch",
-        "uefiSettings": 
-        {
-          "secureBootEnabled": true,
-          "vTpmEnabled": true
-        }
+        "securityType": "TrustedLaunch"
       },
-      "diagnosticsProfile": 
+      "osProfile": 
       {
-        "bootDiagnostics": 
-        {
-            "enabled": true
-        }
-      },
-      //Necessário apenas em imagem generalizada
-      /* "osProfile": 
-      {
-         "computerName": "[parameters('vmName')]",
+        "computerName": "[parameters('vmName')]",
         "adminUsername": "Flavio",
-        "adminPassword": "66964774Aa@GrandForce
-        Ass"
-      }, */
+        "adminPassword": "66964774Aa@GrandForce"
+      },
       "networkProfile": 
       {
         "networkInterfaces":
@@ -103,22 +105,22 @@
       },
       "storageProfile": 
       {
-        "osDisk": 
-        {
-          "createOption": "fromImage",
-          "managedDisk": {
-              "storageAccountType": "Standard_LRS"
-          },
-          "deleteOption": "Delete"
-        },
         "imageReference": 
         {
-          "id": "/subscriptions/31fad7a5-8666-4bfd-8b77-efae9758905b/resourceGroups/dev-geral/providers/Microsoft.Compute/galleries/geral/images/vscode1"
+          "id": "/subscriptions/31fad7a5-8666-4bfd-8b77-efae9758905b/resourceGroups/dev-geral/providers/Microsoft.Compute/galleries/geral/images/vscode/versions/0.0.1"
+        },
+        "osDisk": 
+        {
+          "createOption": "FromImage",
+          "vhd": 
+          {
+            "uri": "[concat(reference(resourceId('Microsoft.Storage/storageAccounts/', variables('storageAccountName'))).primaryEndpoints.blob, 'vhds/osdisk.vhd')]"
+          }
         }
       },
       "priority": "Spot",
       "evictionPolicy": "Deallocate",
-      "billingProfile":
+      "billingProfile": 
       {
       "maxPrice": "[parameters('maxPriceP')]"
       }
