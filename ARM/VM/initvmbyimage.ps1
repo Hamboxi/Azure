@@ -2,7 +2,7 @@
 $resourceGroupName = "dev-geral"
 $deploymentName = "vscodedeploy"
 $templateFilePath = "vmbyimage.json"
-$nameNetwork = "vscodenet"
+$nameNetwork = "vscode1"
 $parameters = @{
     vmName = "vscode";
     location = "Canada Central";

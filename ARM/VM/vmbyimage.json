@@ -116,7 +116,8 @@
       },
       "storageProfile": 
       {
-        "dataDisks": 
+        //Necessario se há discos para atrelar
+        /*"dataDisks": 
         [
         {
             "createOption": "Attach",
@@ -126,7 +127,7 @@
             },
             "lun": 1
         }
-        ],
+        ],*/
         "osDisk": 
         {
           "createOption": "fromImage",
@@ -137,7 +138,7 @@
         },
         "imageReference": 
         {
-          "id": "/subscriptions/31fad7a5-8666-4bfd-8b77-efae9758905b/resourceGroups/dev-geral/providers/Microsoft.Compute/galleries/geral/images/vscode1"
+          "id": "/subscriptions/31fad7a5-8666-4bfd-8b77-efae9758905b/resourceGroups/dev-geral/providers/Microsoft.Compute/galleries/geral/images/vscode"
         }
       },
       "priority": "Spot",
