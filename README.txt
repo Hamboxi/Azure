@@ -1,0 +1,1 @@
+Repositório usado para pequenos scripts e testes no Azure
